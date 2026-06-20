@@ -1,0 +1,23 @@
+rules_version = '2';
+
+// Trusty – Firebase Storage rules.
+//
+// Trusty deliberately stores very little in Storage. Face images are NEVER
+// persisted (they are processed in-memory and discarded). Generated PDF
+// reports, if cached, live under the owning user's folder and are private.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /reports/{uid}/{fileName} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Explicitly deny any biometric/face uploads.
+    match /faces/{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

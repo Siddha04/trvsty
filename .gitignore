@@ -1,0 +1,34 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Secrets — NEVER commit real credentials.
+# A placeholder `.env` is committed so the project builds; replace its values
+# locally and do not commit real secrets. For stricter setups, uncomment:
+# .env
+google-services.json
+GoogleService-Info.plist
+android/key.properties
+*.keystore
+*.jks
+
+# Firebase functions
+functions/node_modules/
+functions/lib/
+
+# OS
+.DS_Store
+Thumbs.db

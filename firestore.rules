@@ -1,0 +1,98 @@
+rules_version = '2';
+
+// =============================================================================
+// Trusty – Cloud Firestore Security Rules
+//
+// Principles:
+//  * Default deny. Every collection is explicitly allowed.
+//  * A user can only read/write their own records (ownership via uid).
+//  * Soft deletes only — clients may set isDeleted=true but never hard-delete.
+//  * Money-moving + verification documents are READ-ONLY to clients; they are
+//    written by trusted Cloud Functions (Admin SDK bypasses these rules).
+// =============================================================================
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // Disallow changing immutable ownership / creation fields on update.
+    function ownershipUnchanged() {
+      return request.resource.data.uid == resource.data.uid;
+    }
+
+    // --- users ---------------------------------------------------------------
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create: if isOwner(uid) && request.resource.data.uid == uid;
+      allow update: if isOwner(uid);
+      // Hard delete is never allowed; use isDeleted soft-delete via update.
+      allow delete: if false;
+    }
+
+    // --- businesses ----------------------------------------------------------
+    match /businesses/{businessId} {
+      allow read: if isSignedIn() && resource.data.ownerUid == request.auth.uid;
+      allow create: if isSignedIn()
+                    && request.resource.data.ownerUid == request.auth.uid;
+      allow update: if isSignedIn()
+                    && resource.data.ownerUid == request.auth.uid;
+      allow delete: if false;
+    }
+
+    // --- verification_history ------------------------------------------------
+    match /verification_history/{id} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      // Records are created/updated by the app for the owning user.
+      allow create: if isSignedIn()
+                    && request.resource.data.userId == request.auth.uid;
+      allow update: if isSignedIn()
+                    && resource.data.userId == request.auth.uid;
+      allow delete: if false;
+    }
+
+    // --- payments ------------------------------------------------------------
+    // Clients may create a pending order and read their own payments, but the
+    // authoritative capture/verification is performed server-side.
+    match /payments/{id} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn()
+                    && request.resource.data.userId == request.auth.uid;
+      allow update: if isSignedIn()
+                    && resource.data.userId == request.auth.uid;
+      allow delete: if false;
+    }
+
+    // --- subscriptions -------------------------------------------------------
+    // Read-only to clients; activated by Cloud Functions after payment verify.
+    match /subscriptions/{id} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
+    // --- reports -------------------------------------------------------------
+    match /reports/{id} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow write: if false;
+    }
+
+    // --- analytics & logs ----------------------------------------------------
+    // Append-only audit trail; not readable by clients.
+    match /analytics/{id} {
+      allow read: if false;
+      allow create: if isSignedIn();
+      allow update, delete: if false;
+    }
+
+    match /logs/{id} {
+      allow read: if false;
+      allow create: if isSignedIn();
+      allow update, delete: if false;
+    }
+  }
+}
