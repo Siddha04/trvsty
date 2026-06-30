@@ -99,7 +99,7 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 24),
             const Center(
-              child: Text('Trusty v1.0.0',
+              child: Text('Trvsty v1.0.0',
                   style: TextStyle(color: AppColors.textMuted)),
             ),
           ],

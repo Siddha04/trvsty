@@ -84,6 +84,18 @@ class AuthService {
     }
   }
 
+  /// Signs in anonymously for demo purposes.
+  Future<User> signInAnonymously() async {
+    try {
+      final result = await _auth.signInAnonymously();
+      final user = result.user;
+      if (user == null) throw AuthException('Anonymous sign-in failed.');
+      return user;
+    } on FirebaseAuthException catch (e) {
+      throw AuthException(_mapError(e), code: e.code);
+    }
+  }
+
   Future<void> signOut() => _auth.signOut();
 
   String _mapError(FirebaseAuthException e) {

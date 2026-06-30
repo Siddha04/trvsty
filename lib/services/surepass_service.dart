@@ -46,7 +46,7 @@ class SurepassService {
   /// Compares two face images (base64) and returns a confidence percentage.
   ///
   /// [referenceImage] is typically the Aadhaar QR photo; [selfieImage] is the
-  /// freshly captured live selfie. Neither image is persisted by Trusty.
+  /// freshly captured live selfie. Neither image is persisted by Trvsty.
   Future<FaceMatchResult> faceMatch({
     required String referenceImageBase64,
     required String selfieImageBase64,

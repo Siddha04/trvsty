@@ -1,7 +1,7 @@
 rules_version = '2';
 
 // =============================================================================
-// Trusty – Cloud Firestore Security Rules
+// Trvsty – Cloud Firestore Security Rules
 //
 // Principles:
 //  * Default deny. Every collection is explicitly allowed.

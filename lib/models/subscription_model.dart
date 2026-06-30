@@ -19,7 +19,7 @@ class SubscriptionPlan extends Equatable {
 
   double get priceRupees => pricePaise / 100;
 
-  /// The canonical Trusty plan catalogue.
+  /// The canonical Trvsty plan catalogue.
   static const List<SubscriptionPlan> catalogue = [
     SubscriptionPlan(
       tier: SubscriptionTier.starter,

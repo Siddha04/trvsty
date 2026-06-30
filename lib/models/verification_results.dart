@@ -104,3 +104,38 @@ class CriminalRecordResult extends Equatable {
   @override
   List<Object?> get props => [hasRecords, recordCount];
 }
+
+/// Result of a bank account / UPI penny drop verification.
+class BankVerificationResult extends Equatable {
+  const BankVerificationResult({
+    required this.accountNumber,
+    required this.ifsc,
+    required this.registeredName,
+    required this.isNameMatch,
+  });
+
+  final String accountNumber;
+  final String ifsc;
+  final String registeredName;
+  final bool isNameMatch;
+
+  CheckResult get result => isNameMatch ? CheckResult.pass : CheckResult.fail;
+
+  Map<String, dynamic> toJson() => {
+        'accountNumber': accountNumber,
+        'ifsc': ifsc,
+        'registeredName': registeredName,
+        'isNameMatch': isNameMatch,
+      };
+
+  factory BankVerificationResult.fromJson(Map<String, dynamic> json) =>
+      BankVerificationResult(
+        accountNumber: json['accountNumber'] as String? ?? '',
+        ifsc: json['ifsc'] as String? ?? '',
+        registeredName: json['registeredName'] as String? ?? '',
+        isNameMatch: json['isNameMatch'] as bool? ?? false,
+      );
+
+  @override
+  List<Object?> get props => [accountNumber, ifsc, registeredName, isNameMatch];
+}

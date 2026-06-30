@@ -74,7 +74,7 @@ class ProfileScreen extends ConsumerWidget {
               const SizedBox(height: 12),
               Center(
                 child: Text(
-                  user?.name ?? 'Trusty User',
+                  user?.name ?? 'Trvsty User',
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge
@@ -129,6 +129,26 @@ class ProfileScreen extends ConsumerWidget {
                 icon: const Icon(Icons.logout),
                 label: const Text('Sign Out'),
               ),
+              const SizedBox(height: 32),
+              const Center(
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Powered by ',
+                    style: TextStyle(
+                      color: AppColors.textMuted,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'welldropp',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
             ],
           ),
         ),

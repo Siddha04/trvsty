@@ -56,16 +56,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Spacer(),
-                const Icon(Icons.verified_user, color: AppColors.accent, size: 72),
+                const Center(child: Icon(Icons.verified_user, color: AppColors.accent, size: 72)),
                 const SizedBox(height: 16),
-                Text(AppConstants.appName,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium
-                        ?.copyWith(fontWeight: FontWeight.bold)),
+                Center(
+                  child: Text(AppConstants.appName,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium
+                          ?.copyWith(fontWeight: FontWeight.bold)),
+                ),
                 const SizedBox(height: 4),
-                const Text(AppConstants.tagline,
-                    style: TextStyle(color: AppColors.textSecondary)),
+                const Center(
+                  child: Text(AppConstants.tagline,
+                      style: TextStyle(color: AppColors.textSecondary)),
+                ),
                 const SizedBox(height: 48),
                 const Text('Enter your mobile number',
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
@@ -96,6 +100,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       : const Text('Send OTP'),
                 ),
                 const Spacer(),
+                Center(
+                  child: TextButton(
+                    onPressed: state.isBusy
+                        ? null
+                        : () => ref.read(authControllerProvider.notifier).demoLogin(),
+                    child: const Text('Demo Entry (Testing Only)', style: TextStyle(color: AppColors.accent)),
+                  ),
+                ),
+                const SizedBox(height: 8),
                 const Text(
                   'By continuing you agree to our Terms & Privacy Policy. '
                   'Your data is processed in accordance with the DPDP Act, 2023.',

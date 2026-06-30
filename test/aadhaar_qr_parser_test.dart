@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:trusty/core/error/exceptions.dart';
-import 'package:trusty/services/aadhaar_qr_parser.dart';
+import 'package:trvsty/core/error/exceptions.dart';
+import 'package:trvsty/services/aadhaar_qr_parser.dart';
 
 void main() {
   const parser = AadhaarQrParser();

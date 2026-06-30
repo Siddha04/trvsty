@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'app_colors.dart';
 
-/// Material 3 theme for Trusty.
+/// Material 3 theme for Trvsty.
 ///
 /// The app ships a single dark-first brand theme (the design uses a deep navy
 /// background). Cards are white "islands" of content on top of the dark
@@ -40,7 +40,7 @@ class AppTheme {
         centerTitle: true,
         foregroundColor: AppColors.textPrimary,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.card,
         elevation: 2,
         shadowColor: Colors.black54,

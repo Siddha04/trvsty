@@ -1,4 +1,4 @@
-# Trusty — Setup & Deployment Guide
+# Trvsty — Setup & Deployment Guide
 
 This guide takes a fresh clone to a running, release-ready app.
 
@@ -78,7 +78,7 @@ Add inside `<manifest>`:
 ### iOS (`ios/Runner/Info.plist`)
 ```xml
 <key>NSCameraUsageDescription</key>
-<string>Trusty uses the camera to scan Aadhaar QR codes and capture a selfie for face match.</string>
+<string>Trvsty uses the camera to scan Aadhaar QR codes and capture a selfie for face match.</string>
 ```
 Set the iOS deployment target to **13.0+** in `ios/Podfile`.
 

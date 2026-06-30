@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Brand colour palette for Trusty.
+/// Brand colour palette for Trvsty.
 ///
 /// Derived from the design specification:
 /// - Background: #1A1A2E
@@ -18,8 +18,8 @@ class AppColors {
   static const Color error = Color(0xFFFF5252);
   static const Color warning = Color(0xFFFFB300);
 
-  static const Color card = Colors.white;
-  static const Color cardForeground = Color(0xFF1A1A2E);
+  static const Color card = Color(0x0AFFFFFF); // Premium glassmorphism base
+  static const Color cardForeground = Colors.white;
 
   static const Color textPrimary = Colors.white;
   static const Color textSecondary = Color(0xFFB0B3C7);
