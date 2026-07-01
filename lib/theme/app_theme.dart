@@ -40,7 +40,7 @@ class AppTheme {
         centerTitle: true,
         foregroundColor: AppColors.textPrimary,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.card,
         elevation: 2,
         shadowColor: Colors.black54,
