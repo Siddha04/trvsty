@@ -38,7 +38,7 @@ class _AppCardState extends State<AppCard> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeOutCubic,
-        transform: Matrix4.identity()..scale(_isHovered ? 1.015 : 1.0),
+        transform: Matrix4.identity()..scale(_isHovered ? 1.015 : 1.0, _isHovered ? 1.015 : 1.0, 1.0),
         transformAlignment: Alignment.center,
         decoration: BoxDecoration(
           color: AppColors.card,
@@ -56,7 +56,7 @@ class _AppCardState extends State<AppCard> {
               )
             else
               const BoxShadow(
-                color: Colors.black26,
+                color: AppColors.shadowBase,
                 blurRadius: 12,
                 offset: Offset(0, 6),
               ),

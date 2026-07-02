@@ -5,9 +5,13 @@ import 'app_colors.dart';
 
 /// Material 3 theme for Trvsty.
 ///
-/// The app ships a single dark-first brand theme (the design uses a deep navy
-/// background). Cards are white "islands" of content on top of the dark
-/// surface, matching the specification.
+/// The app ships a single dark-first brand theme built on a deep navy
+/// background ([AppColors.background]). Content cards are solid white surfaces
+/// ([AppColors.card]) that sit on top of the dark background — the "white cards
+/// on dark navy" (Option B) treatment shared by every screen via [AppCard].
+/// Hover/press states add a translucent cyan glow so the cards feel interactive
+/// without abandoning the white surface. All type is sourced from the Poppins
+/// Google Font and is applied uniformly via [textTheme].
 class AppTheme {
   const AppTheme._();
 

@@ -163,7 +163,7 @@ class _InfoRow extends StatelessWidget {
         children: [
           Icon(icon, size: 20, color: AppColors.accent),
           const SizedBox(width: 12),
-          Text(label, style: const TextStyle(color: AppColors.textMuted)),
+          Text(label, style: const TextStyle(color: AppColors.cardMuted)),
           const Spacer(),
           Text(value, style: const TextStyle(fontWeight: FontWeight.w600)),
         ],
@@ -186,7 +186,7 @@ class _MenuRow extends StatelessWidget {
         Expanded(
             child: Text(label,
                 style: const TextStyle(fontWeight: FontWeight.w500))),
-        const Icon(Icons.chevron_right, color: AppColors.textMuted),
+        const Icon(Icons.chevron_right, color: AppColors.cardMuted),
       ],
     );
   }

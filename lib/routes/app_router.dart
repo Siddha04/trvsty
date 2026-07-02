@@ -12,6 +12,7 @@ import '../features/payment/presentation/screens/payment_screen.dart';
 import '../features/profile/presentation/profile_screen.dart';
 import '../features/reports/presentation/report_preview_screen.dart';
 import '../features/settings/presentation/settings_screen.dart';
+import '../features/shell/main_shell.dart';
 import '../features/splash/presentation/splash_screen.dart';
 import '../features/subscriptions/presentation/subscriptions_screen.dart';
 import '../features/verification/presentation/screens/bank_entry_screen.dart';
@@ -28,6 +29,13 @@ import 'route_paths.dart';
 ///
 /// A [Listenable] bridged from the auth state stream drives `refreshListenable`
 /// so the redirect guard re-evaluates whenever the user signs in or out.
+///
+/// Navigation structure:
+/// - Splash / auth flow (login, otp, consent) — standalone, no shell.
+/// - Primary destinations (home, history, profile, settings) — wrapped in a
+///   [ShellRoute] that renders [MainShell] with a persistent [NavigationBar].
+/// - Deep routes (verification pipeline, report, subscriptions) — push on top
+///   of the shell and do not show the navigation bar.
 final routerProvider = Provider<GoRouter>((ref) {
   final notifier = ValueNotifier<int>(0);
   ref
@@ -40,7 +48,8 @@ final routerProvider = Provider<GoRouter>((ref) {
     refreshListenable: notifier,
     redirect: (context, state) {
       final isDemo = ref.read(isDemoModeProvider);
-      final isSignedIn = isDemo || ref.read(authRepositoryProvider).currentUser != null;
+      final isSignedIn =
+          isDemo || ref.read(authRepositoryProvider).currentUser != null;
       final loc = state.matchedLocation;
 
       final onSplash = loc == RoutePaths.splash;
@@ -60,6 +69,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
+      // ── Standalone screens (no bottom nav) ────────────────────────────────
       GoRoute(
           path: RoutePaths.splash,
           builder: (_, __) => const SplashScreen()),
@@ -67,9 +77,29 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: RoutePaths.otp, builder: (_, __) => const OtpScreen()),
       GoRoute(
           path: RoutePaths.consent, builder: (_, __) => const ConsentScreen()),
-      GoRoute(path: RoutePaths.home, builder: (_, __) => const HomeScreen()),
 
-      // Verification pipeline
+      // ── Primary destinations — wrapped in NavigationBar shell ──────────────
+      ShellRoute(
+        builder: (context, state, child) => MainShell(child: child),
+        routes: [
+          GoRoute(
+              path: RoutePaths.home,
+              builder: (_, __) => const HomeScreen()),
+          GoRoute(
+              path: RoutePaths.history,
+              builder: (_, __) => const HistoryScreen()),
+          GoRoute(
+              path: RoutePaths.profile,
+              builder: (_, __) => const ProfileScreen()),
+        ],
+      ),
+
+      // ── Settings (accessible via Profile) ────────────────────────────────
+      GoRoute(
+          path: RoutePaths.settings,
+          builder: (_, __) => const SettingsScreen()),
+
+      // ── Verification pipeline (pushes over the shell) ─────────────────────
       GoRoute(
           path: RoutePaths.scanAadhaar,
           builder: (_, __) => const ScanAadhaarScreen()),
@@ -86,8 +116,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           path: RoutePaths.criminalCheck,
           builder: (_, __) => const CriminalCheckScreen()),
       GoRoute(
-          path: RoutePaths.payment,
-          builder: (_, __) => const PaymentScreen()),
+          path: RoutePaths.payment, builder: (_, __) => const PaymentScreen()),
       GoRoute(
           path: RoutePaths.result,
           builder: (_, __) => const VerificationResultScreen()),
@@ -95,19 +124,14 @@ final routerProvider = Provider<GoRouter>((ref) {
           path: RoutePaths.digilocker,
           builder: (_, __) => const DigiLockerScreen()),
 
-      // Report preview expects a VerificationRecord via `extra`.
+      // ── Report preview expects a VerificationRecord via `extra` ───────────
       GoRoute(
         path: RoutePaths.report,
         builder: (_, state) =>
             ReportPreviewScreen(record: state.extra! as VerificationRecord),
       ),
-      GoRoute(
-          path: RoutePaths.history, builder: (_, __) => const HistoryScreen()),
-      GoRoute(
-          path: RoutePaths.profile, builder: (_, __) => const ProfileScreen()),
-      GoRoute(
-          path: RoutePaths.settings,
-          builder: (_, __) => const SettingsScreen()),
+
+      // ── Other destinations that push over the shell ────────────────────────
       GoRoute(
           path: RoutePaths.subscriptions,
           builder: (_, __) => const SubscriptionsScreen()),

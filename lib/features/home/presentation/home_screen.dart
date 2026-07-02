@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../constants/app_spacing.dart';
 import '../../../core/providers/app_providers.dart';
 import '../../../models/enums.dart';
 import '../../../models/trust_score.dart';
+import '../../../models/user_model.dart';
 import '../../../routes/route_paths.dart';
 import '../../../theme/app_colors.dart';
 import '../../../widgets/common_widgets.dart';
@@ -71,152 +73,110 @@ class HomeScreen extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
     final user = ref.watch(userProfileProvider).valueOrNull;
     final latestVerification = ref.watch(latestVerificationProvider).valueOrNull;
+    final isDesktop = MediaQuery.sizeOf(context).width >= 720;
 
     return Scaffold(
-      extendBody: true,
+      appBar: AppBar(
+        backgroundColor: AppColors.background,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        titleSpacing: AppSpacing.xl,
+        title: isDesktop ? null : Row(
+          children: [
+            // ── Logo mark ──────────────────────────────────────────────
+            Container(
+              width: 32,
+              height: 32,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.accent,
+              ),
+              child: const Icon(
+                Icons.verified_user,
+                color: Colors.white,
+                size: 18,
+              ),
+            ),
+            const SizedBox(width: AppSpacing.sm),
+            // ── Wordmark ───────────────────────────────────────────────
+            Text(
+              'Trvsty',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: AppColors.textPrimary,
+                fontWeight: FontWeight.w800,
+                letterSpacing: -0.5,
+              ),
+            ),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final isMobile = constraints.maxWidth < 600;
-
             return SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.xl,
+                vertical: AppSpacing.lg,
+              ),
               child: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 900),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // HEADER
-                      FadeInContainer(
-                        delay: const Duration(milliseconds: 100),
-                        child: Column(
+                  constraints: BoxConstraints(maxWidth: isDesktop ? 1200 : 600),
+                  child: isDesktop
+                      ? Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              user?.name != null && user!.name!.trim().isNotEmpty
-                                  ? 'Welcome back, ${user.name!.split(' ').first}'
-                                  : 'Verify with Confidence',
-                              style: textTheme.headlineSmall?.copyWith(
-                                fontWeight: FontWeight.w800,
-                                color: AppColors.textPrimary,
-                                letterSpacing: -0.5,
+                            // ── DESKTOP LEFT COLUMN ────────────────────────────────
+                            Expanded(
+                              flex: 6,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildHeader(user, textTheme),
+                                  if (latestVerification?.trustScore != null) ...[
+                                    const SizedBox(height: AppSpacing.xl),
+                                    _buildLatestScoreCard(context, latestVerification!.trustScore!),
+                                  ],
+                                  const SizedBox(height: AppSpacing.xl),
+                                  _buildPrimaryCards(context, ref),
+                                  const SizedBox(height: AppSpacing.xl),
+                                ],
                               ),
                             ),
-                            const SizedBox(height: 6),
-                            Text(
-                              'Run a complete background verification in minutes.',
-                              style: textTheme.bodyMedium?.copyWith(
-                                color: AppColors.textSecondary,
+                            const SizedBox(width: AppSpacing.xxxl),
+                            // ── DESKTOP RIGHT COLUMN ───────────────────────────────
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildServicesHeader(textTheme),
+                                  const SizedBox(height: AppSpacing.lg),
+                                  _buildServicesList(context),
+                                  const SizedBox(height: AppSpacing.xl),
+                                ],
                               ),
                             ),
                           ],
-                        ),
-                      ),
-
-                      // LATEST TRUST SCORE (only if the user has one)
-                      if (latestVerification?.trustScore != null) ...[
-                        const SizedBox(height: 20),
-                        FadeInContainer(
-                          delay: const Duration(milliseconds: 150),
-                          child: _LatestScoreCard(
-                            score: latestVerification!.trustScore!,
-                            onTap: () => context.push(RoutePaths.history),
-                          ),
-                        ),
-                      ],
-
-                      const SizedBox(height: 24),
-
-                      // PRIMARY CARDS (Individual / Business)
-                      FadeInContainer(
-                        delay: const Duration(milliseconds: 200),
-                        child: isMobile
-                            ? Column(
-                                children: [
-                                  _PrimaryCard(
-                                    icon: Icons.person,
-                                    title: 'Individual',
-                                    subtitle: 'Verify a person',
-                                    onTap: () => _startVerification(
-                                        context, ref, UserType.individual,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  _PrimaryCard(
-                                    icon: Icons.business,
-                                    title: 'Business',
-                                    subtitle: 'Verify an organisation',
-                                    onTap: () => _startVerification(
-                                        context, ref, UserType.business,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Row(
-                                children: [
-                                  Expanded(
-                                    child: _PrimaryCard(
-                                      icon: Icons.person,
-                                      title: 'Individual',
-                                      subtitle: 'Verify a person',
-                                      onTap: () => _startVerification(
-                                          context, ref, UserType.individual,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 16),
-                                  Expanded(
-                                    child: _PrimaryCard(
-                                      icon: Icons.business,
-                                      title: 'Business',
-                                      subtitle: 'Verify an organisation',
-                                      onTap: () => _startVerification(
-                                          context, ref, UserType.business,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                      ),
-
-                      const SizedBox(height: 40),
-
-                      // SERVICES HEADER
-                      FadeInContainer(
-                        delay: const Duration(milliseconds: 300),
-                        child: Text(
-                          'Services',
-                          style: textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: -0.5,
-                            color: AppColors.textPrimary,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // SERVICE LIST (data-driven, full width)
-                      FadeInContainer(
-                        delay: const Duration(milliseconds: 400),
-                        child: Column(
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            for (final service in _services) ...[
-                              _ServiceCard(
-                                item: service,
-                                onTap: service.route == null
-                                    ? null
-                                    : () => context.push(service.route!),
-                              ),
-                              if (service != _services.last)
-                                const SizedBox(height: 12),
+                            // ── MOBILE LAYOUT ──────────────────────────────────────
+                            _buildHeader(user, textTheme),
+                            if (latestVerification?.trustScore != null) ...[
+                              const SizedBox(height: AppSpacing.xl),
+                              _buildLatestScoreCard(context, latestVerification!.trustScore!),
                             ],
+                            const SizedBox(height: AppSpacing.xl),
+                            _buildPrimaryCards(context, ref),
+                            const SizedBox(height: AppSpacing.xxxl),
+                            _buildServicesHeader(textTheme),
+                            const SizedBox(height: AppSpacing.lg),
+                            _buildServicesList(context),
+                            const SizedBox(height: AppSpacing.xl),
                           ],
                         ),
-                      ),
-                      const SizedBox(height: 40), // Padding for bottom nav
-                    ],
-                  ),
                 ),
               ),
             );
@@ -225,7 +185,118 @@ class HomeScreen extends ConsumerWidget {
       ),
     );
   }
+
+  Widget _buildHeader(UserModel? user, TextTheme textTheme) {
+    return FadeInContainer(
+      delay: const Duration(milliseconds: 100),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            user?.name != null && user!.name!.trim().isNotEmpty
+                ? 'Welcome back, ${user.name!.split(' ').first}'
+                : 'Verify with Confidence',
+            style: textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w800,
+              color: AppColors.textPrimary,
+              letterSpacing: -0.5,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            'Run a complete background verification in minutes.',
+            style: textTheme.bodyMedium?.copyWith(
+              color: AppColors.textSecondary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLatestScoreCard(BuildContext context, TrustScore score) {
+    return FadeInContainer(
+      delay: const Duration(milliseconds: 150),
+      child: _LatestScoreCard(
+        score: score,
+        onTap: () => context.push(RoutePaths.history),
+      ),
+    );
+  }
+
+  Widget _buildPrimaryCards(BuildContext context, WidgetRef ref) {
+    return FadeInContainer(
+      delay: const Duration(milliseconds: 200),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: _PrimaryCard(
+                icon: Icons.person,
+                title: 'Individual',
+                subtitle: 'Verify a person',
+                onTap: () => _startVerification(
+                  context,
+                  ref,
+                  UserType.individual,
+                ),
+              ),
+            ),
+            const SizedBox(width: AppSpacing.lg),
+            Expanded(
+              child: _PrimaryCard(
+                icon: Icons.business,
+                title: 'Business',
+                subtitle: 'Verify an organisation',
+                onTap: () => _startVerification(
+                  context,
+                  ref,
+                  UserType.business,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildServicesHeader(TextTheme textTheme) {
+    return FadeInContainer(
+      delay: const Duration(milliseconds: 300),
+      child: Text(
+        'Services',
+        style: textTheme.titleLarge?.copyWith(
+          fontWeight: FontWeight.w700,
+          letterSpacing: -0.5,
+          color: AppColors.textPrimary,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildServicesList(BuildContext context) {
+    return FadeInContainer(
+      delay: const Duration(milliseconds: 400),
+      child: Column(
+        children: [
+          for (final service in _services) ...[
+            _ServiceCard(
+              item: service,
+              onTap: service.route == null
+                  ? null
+                  : () => context.push(service.route!),
+            ),
+            if (service != _services.last)
+              const SizedBox(height: AppSpacing.md),
+          ],
+        ],
+      ),
+    );
+  }
 }
+
 
 /// Compact shortcut into the user's most recent Trust Score, so a returning
 /// user isn't looking at the exact same "start a new verification" screen
@@ -244,12 +315,17 @@ class _LatestScoreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Semantics(
       button: true,
-      label: 'Your latest Trust Score: ${score.value} out of 100, ${score.band.label}',
+      label:
+          'Your latest Trust Score: ${score.value} out of 100, ${score.band.label}. Tap to view history.',
       child: AppCard(
         onTap: onTap,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.xl,
+          vertical: AppSpacing.lg,
+        ),
         child: Row(
           children: [
             Container(
@@ -263,31 +339,42 @@ class _LatestScoreCard extends StatelessWidget {
               ),
               child: Text(
                 '${score.value}',
-                style: TextStyle(
+                style: textTheme.labelLarge?.copyWith(
                   fontWeight: FontWeight.w800,
-                  fontSize: 14,
                   color: _bandColor,
                 ),
               ),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: AppSpacing.lg),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Your latest Trust Score',
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+                    style: textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.cardForeground,
+                    ),
                   ),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: AppSpacing.xs / 2),
                   Text(
                     score.band.label,
-                    style: const TextStyle(color: AppColors.cardMuted, fontSize: 13),
+                    style: textTheme.bodySmall?.copyWith(
+                      color: AppColors.cardMuted,
+                    ),
                   ),
                 ],
               ),
             ),
-            const Icon(Icons.arrow_forward_ios, color: AppColors.cardMuted, size: 14),
+            Semantics(
+              label: 'View verification history',
+              child: const Icon(
+                Icons.arrow_forward_ios,
+                color: AppColors.cardMuted,
+                size: 14,
+              ),
+            ),
           ],
         ),
       ),
@@ -296,6 +383,9 @@ class _LatestScoreCard extends StatelessWidget {
 }
 
 /// The top Individual / Business entry cards.
+///
+/// Height is intrinsic ([mainAxisSize: MainAxisSize.min]) so larger system
+/// font sizes and longer localised copy will never clip or overflow.
 class _PrimaryCard extends StatelessWidget {
   const _PrimaryCard({
     required this.icon,
@@ -311,14 +401,19 @@ class _PrimaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Semantics(
       button: true,
       label: '$title. $subtitle',
       child: AppCard(
         onTap: onTap,
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+        padding: const EdgeInsets.symmetric(
+          vertical: AppSpacing.xl,
+          horizontal: AppSpacing.lg,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               width: 56,
@@ -326,24 +421,24 @@ class _PrimaryCard extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.accent.withValues(alpha: 0.1),
+                color: AppColors.accent.withValues(alpha: 0.12),
               ),
               child: Icon(icon, color: AppColors.accent, size: 28),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppSpacing.lg),
             Text(
               title,
-              style: const TextStyle(
+              style: textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w700,
-                fontSize: 16,
                 letterSpacing: -0.3,
+                color: AppColors.cardForeground,
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: AppSpacing.xs),
             Text(
               subtitle,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.cardMuted, fontSize: 13),
+              style: textTheme.bodySmall?.copyWith(color: AppColors.cardMuted),
             ),
           ],
         ),
@@ -353,6 +448,10 @@ class _PrimaryCard extends StatelessWidget {
 }
 
 /// A single row in the "Services" list.
+///
+/// Non-routed services (those without a [_ServiceItem.route]) are displayed as
+/// informational rows — tappable but with no destination yet. Routed services
+/// show a chevron arrow with an explicit accessibility label.
 class _ServiceCard extends StatelessWidget {
   const _ServiceCard({required this.item, this.onTap});
 
@@ -361,16 +460,22 @@ class _ServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final hasRoute = item.route != null;
+
     return Semantics(
-      button: onTap != null,
+      button: hasRoute,
       label: '${item.title}. ${item.subtitle}',
       child: AppCard(
-        onTap: onTap ?? () => HapticFeedback.selectionClick(),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        onTap: onTap,
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.xl,
+          vertical: AppSpacing.lg,
+        ),
         child: Row(
           children: [
             Icon(item.icon, color: AppColors.accent, size: 26),
-            const SizedBox(width: 20),
+            const SizedBox(width: AppSpacing.lg),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -378,23 +483,33 @@ class _ServiceCard extends StatelessWidget {
                 children: [
                   Text(
                     item.title,
-                    style: const TextStyle(
+                    style: textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w700,
-                      fontSize: 15,
                       letterSpacing: -0.3,
+                      color: AppColors.cardForeground,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: AppSpacing.xs),
                   Text(
                     item.subtitle,
-                    style: const TextStyle(color: AppColors.cardMuted, fontSize: 13),
+                    style: textTheme.bodySmall?.copyWith(
+                      color: AppColors.cardMuted,
+                    ),
                   ),
                 ],
               ),
             ),
-            if (item.route != null) ...[
-              const SizedBox(width: 16),
-              const Icon(Icons.arrow_forward_ios, color: AppColors.cardMuted, size: 14),
+            if (hasRoute) ...[
+              const SizedBox(width: AppSpacing.lg),
+              Semantics(
+                label: 'Open ${item.title}',
+                excludeSemantics: true,
+                child: const Icon(
+                  Icons.arrow_forward_ios,
+                  color: AppColors.cardMuted,
+                  size: 14,
+                ),
+              ),
             ],
           ],
         ),
