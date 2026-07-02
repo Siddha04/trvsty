@@ -55,7 +55,7 @@ class ReportPreviewScreen extends ConsumerWidget {
         build: (format) => pdfService.build(record),
         canChangePageFormat: false,
         canChangeOrientation: false,
-        pdfFileName: 'Trusty_Report_${record.shortId}.pdf',
+        pdfFileName: 'Trvsty_Report_${record.shortId}.pdf',
       ),
     );
   }

@@ -16,15 +16,17 @@ import '../../models/verification_results.dart';
 class TrustScoreCalculator {
   const TrustScoreCalculator();
 
-  static const int _aadhaarWeight = 25;
-  static const int _faceWeight = 30;
-  static const int _panWeight = 25;
-  static const int _criminalWeight = 20;
+  static const int _aadhaarWeight = 20;
+  static const int _faceWeight = 25;
+  static const int _panWeight = 20;
+  static const int _bankWeight = 20;
+  static const int _criminalWeight = 15;
 
   TrustScore calculate({
     required bool aadhaarVerified,
     FaceMatchResult? faceMatch,
     PanVerificationResult? pan,
+    BankVerificationResult? bank,
     CriminalRecordResult? criminal,
   }) {
     final breakdown = <String, int>{};
@@ -53,6 +55,10 @@ class TrustScoreCalculator {
         }
       }
       breakdown['PAN'] = panScore;
+    }
+
+    if (bank != null) {
+      breakdown['Bank Verify'] = bank.isNameMatch ? _bankWeight : 0;
     }
 
     if (criminal != null) {

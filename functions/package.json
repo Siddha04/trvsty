@@ -1,7 +1,7 @@
 {
-  "name": "trusty-functions",
+  "name": "trvsty-functions",
   "version": "1.0.0",
-  "description": "Trusty backend Cloud Functions: Razorpay order creation, payment signature verification and webhooks.",
+  "description": "Trvsty backend Cloud Functions: Razorpay order creation, payment signature verification and webhooks.",
   "main": "lib/index.js",
   "engines": {
     "node": "20"

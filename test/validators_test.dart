@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:trusty/utils/formatters.dart';
-import 'package:trusty/utils/validators.dart';
+import 'package:trvsty/utils/formatters.dart';
+import 'package:trvsty/utils/validators.dart';
 
 void main() {
   group('Validators.phone', () {

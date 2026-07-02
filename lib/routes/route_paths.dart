@@ -13,6 +13,7 @@ class RoutePaths {
   static const String scanAadhaar = '/verify/scan';
   static const String faceCapture = '/verify/face';
   static const String panEntry = '/verify/pan';
+  static const String bankEntry = '/verify/bank';
   static const String criminalCheck = '/verify/criminal';
   static const String payment = '/verify/payment';
   static const String result = '/verify/result';

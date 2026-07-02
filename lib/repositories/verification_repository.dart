@@ -34,10 +34,17 @@ abstract interface class VerificationRepository {
     required String dateOfBirth,
   });
 
+  Future<Result<BankVerificationResult>> verifyBankAccount({
+    required String accountNumber,
+    required String ifsc,
+    required String expectedName,
+  });
+
   TrustScore computeTrustScore({
     required bool aadhaarVerified,
     FaceMatchResult? faceMatch,
     PanVerificationResult? pan,
+    BankVerificationResult? bank,
     CriminalRecordResult? criminal,
   });
 
@@ -103,16 +110,42 @@ class VerificationRepositoryImpl implements VerificationRepository {
           ));
 
   @override
+  Future<Result<BankVerificationResult>> verifyBankAccount({
+    required String accountNumber,
+    required String ifsc,
+    required String expectedName,
+  }) async {
+    // Simulated Penny Drop (IMPS) Verification
+    await Future.delayed(const Duration(seconds: 1)); // Simulate network latency
+    
+    // Fail if IFSC doesn't have 11 characters
+    if (ifsc.length != 11) {
+      return ResultFailure(const VerificationFailure('Invalid IFSC Code.'));
+    }
+
+    // In a real scenario, this would hit SurePass or a banking API.
+    // Here we simulate a successful name match.
+    return Success(BankVerificationResult(
+      accountNumber: accountNumber,
+      ifsc: ifsc,
+      registeredName: expectedName,
+      isNameMatch: true,
+    ));
+  }
+
+  @override
   TrustScore computeTrustScore({
     required bool aadhaarVerified,
     FaceMatchResult? faceMatch,
     PanVerificationResult? pan,
+    BankVerificationResult? bank,
     CriminalRecordResult? criminal,
   }) =>
       _calculator.calculate(
         aadhaarVerified: aadhaarVerified,
         faceMatch: faceMatch,
         pan: pan,
+        bank: bank,
         criminal: criminal,
       );
 

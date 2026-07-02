@@ -44,6 +44,9 @@ final razorpayServiceProvider =
 final secureStorageProvider =
     Provider<SecureStorageService>((ref) => sl<SecureStorageService>());
 
+/// State provider for demo bypass
+final isDemoModeProvider = StateProvider<bool>((ref) => false);
+
 /// Streams the Firebase auth user (null when signed out).
 final authStateProvider = StreamProvider((ref) {
   return ref.watch(authRepositoryProvider).authStateChanges;

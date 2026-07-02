@@ -14,6 +14,7 @@ import '../features/reports/presentation/report_preview_screen.dart';
 import '../features/settings/presentation/settings_screen.dart';
 import '../features/splash/presentation/splash_screen.dart';
 import '../features/subscriptions/presentation/subscriptions_screen.dart';
+import '../features/verification/presentation/screens/bank_entry_screen.dart';
 import '../features/verification/presentation/screens/criminal_check_screen.dart';
 import '../features/verification/presentation/screens/digilocker_screen.dart';
 import '../features/verification/presentation/screens/face_capture_screen.dart';
@@ -31,13 +32,15 @@ final routerProvider = Provider<GoRouter>((ref) {
   final notifier = ValueNotifier<int>(0);
   ref
     ..onDispose(notifier.dispose)
-    ..listen(authStateProvider, (_, __) => notifier.value++);
+    ..listen(authStateProvider, (_, __) => notifier.value++)
+    ..listen(isDemoModeProvider, (_, __) => notifier.value++);
 
   return GoRouter(
     initialLocation: RoutePaths.splash,
     refreshListenable: notifier,
     redirect: (context, state) {
-      final isSignedIn = ref.read(authRepositoryProvider).currentUser != null;
+      final isDemo = ref.read(isDemoModeProvider);
+      final isSignedIn = isDemo || ref.read(authRepositoryProvider).currentUser != null;
       final loc = state.matchedLocation;
 
       final onSplash = loc == RoutePaths.splash;
@@ -76,6 +79,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
           path: RoutePaths.panEntry,
           builder: (_, __) => const PanEntryScreen()),
+      GoRoute(
+          path: RoutePaths.bankEntry,
+          builder: (_, __) => const BankEntryScreen()),
       GoRoute(
           path: RoutePaths.criminalCheck,
           builder: (_, __) => const CriminalCheckScreen()),

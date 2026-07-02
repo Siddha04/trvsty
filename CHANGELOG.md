@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Trusty are documented here. This project adheres to
+All notable changes to Trvsty are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
 ## [1.0.0] — 2026-06-20
