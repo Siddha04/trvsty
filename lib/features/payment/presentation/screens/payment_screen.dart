@@ -95,7 +95,7 @@ class PaymentScreen extends ConsumerWidget {
                   SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'Payments are processed securely by Razorpay. Trusty never '
+                      'Payments are processed securely by Razorpay. Trvsty never '
                       'stores your card details.',
                       style:
                           TextStyle(color: AppColors.textMuted, fontSize: 12),

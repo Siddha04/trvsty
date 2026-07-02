@@ -1,8 +1,8 @@
 rules_version = '2';
 
-// Trusty – Firebase Storage rules.
+// Trvsty – Firebase Storage rules.
 //
-// Trusty deliberately stores very little in Storage. Face images are NEVER
+// Trvsty deliberately stores very little in Storage. Face images are NEVER
 // persisted (they are processed in-memory and discarded). Generated PDF
 // reports, if cached, live under the owning user's folder and are private.
 service firebase.storage {

@@ -13,6 +13,7 @@ enum VerificationStep {
   scanAadhaar,
   faceCapture,
   panEntry,
+  bankEntry,
   criminalCheck,
   payment,
   result,
@@ -26,6 +27,7 @@ class VerificationFlowState {
     this.aadhaar,
     this.faceMatch,
     this.pan,
+    this.bank,
     this.criminal,
     this.trustScore,
     this.savedRecord,
@@ -38,6 +40,7 @@ class VerificationFlowState {
   final AadhaarData? aadhaar;
   final FaceMatchResult? faceMatch;
   final PanVerificationResult? pan;
+  final BankVerificationResult? bank;
   final CriminalRecordResult? criminal;
   final TrustScore? trustScore;
   final VerificationRecord? savedRecord;
@@ -52,6 +55,7 @@ class VerificationFlowState {
     AadhaarData? aadhaar,
     FaceMatchResult? faceMatch,
     PanVerificationResult? pan,
+    BankVerificationResult? bank,
     CriminalRecordResult? criminal,
     TrustScore? trustScore,
     VerificationRecord? savedRecord,
@@ -64,6 +68,7 @@ class VerificationFlowState {
         aadhaar: aadhaar ?? this.aadhaar,
         faceMatch: faceMatch ?? this.faceMatch,
         pan: pan ?? this.pan,
+        bank: bank ?? this.bank,
         criminal: criminal ?? this.criminal,
         trustScore: trustScore ?? this.trustScore,
         savedRecord: savedRecord ?? this.savedRecord,
@@ -133,6 +138,25 @@ class VerificationController extends StateNotifier<VerificationFlowState> {
       (pan) => state = state.copyWith(
         isLoading: false,
         pan: pan,
+        step: VerificationStep.bankEntry,
+      ),
+    );
+  }
+
+  /// Verifies the entered Bank Account, cross-checking against the Aadhaar name.
+  Future<void> runBankVerification(String account, String ifsc) async {
+    state = state.copyWith(isLoading: true, errorMessage: null);
+    final result = await _ref.read(verificationRepositoryProvider).verifyBankAccount(
+          accountNumber: account,
+          ifsc: ifsc,
+          expectedName: state.aadhaar?.name ?? '',
+        );
+    result.fold(
+      (failure) =>
+          state = state.copyWith(isLoading: false, errorMessage: failure.message),
+      (bank) => state = state.copyWith(
+        isLoading: false,
+        bank: bank,
         step: VerificationStep.criminalCheck,
       ),
     );
@@ -171,6 +195,7 @@ class VerificationController extends StateNotifier<VerificationFlowState> {
           aadhaarVerified: state.aadhaarVerified,
           faceMatch: state.faceMatch,
           pan: state.pan,
+          bank: state.bank,
           criminal: state.criminal,
         );
 
@@ -185,6 +210,7 @@ class VerificationController extends StateNotifier<VerificationFlowState> {
       aadhaar: state.aadhaar,
       faceMatch: state.faceMatch,
       pan: state.pan,
+      bank: state.bank,
       criminal: state.criminal,
       trustScore: score,
       paymentId: paymentId,

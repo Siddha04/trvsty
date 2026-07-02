@@ -38,8 +38,8 @@ class _PanEntryScreenState extends ConsumerState<PanEntryScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen(verificationControllerProvider, (prev, next) {
-      if (next.step == VerificationStep.criminalCheck && next.pan != null) {
-        context.pushReplacement(RoutePaths.criminalCheck);
+      if (next.step == VerificationStep.bankEntry && next.pan != null) {
+        context.pushReplacement(RoutePaths.bankEntry);
       } else if (next.errorMessage != null) {
         showSnack(context, next.errorMessage!, isError: true);
       }

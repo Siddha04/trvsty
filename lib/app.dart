@@ -6,8 +6,8 @@ import 'routes/app_router.dart';
 import 'theme/app_theme.dart';
 
 /// Root widget. Wires the router and the brand theme into [MaterialApp.router].
-class TrustyApp extends ConsumerWidget {
-  const TrustyApp({super.key});
+class TrvstyApp extends ConsumerWidget {
+  const TrvstyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

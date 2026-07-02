@@ -104,7 +104,15 @@ class AuthController extends StateNotifier<AuthState> {
     );
   }
 
+  Future<void> demoLogin() async {
+    state = state.copyWith(phase: AuthPhase.verifying, errorMessage: null);
+    // Bypass firebase entirely by setting the demo flag
+    _ref.read(isDemoModeProvider.notifier).state = true;
+    state = state.copyWith(phase: AuthPhase.authenticated, user: null);
+  }
+
   Future<void> signOut() async {
+    _ref.read(isDemoModeProvider.notifier).state = false;
     await _ref.read(authRepositoryProvider).signOut();
     state = const AuthState();
   }

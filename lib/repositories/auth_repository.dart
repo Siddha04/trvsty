@@ -30,6 +30,8 @@ abstract interface class AuthRepository {
     required String phoneNumber,
   });
 
+  Future<void> signInAnonymously();
+
   Future<void> signOut();
 }
 
@@ -113,6 +115,16 @@ class AuthRepositoryImpl implements AuthRepository {
     );
     final saved = await _userRepository.upsertUser(fresh);
     return saved.valueOrNull ?? fresh;
+  }
+
+  @override
+  Future<void> signInAnonymously() async {
+    try {
+      final user = await _authService.signInAnonymously();
+      await _provision(user, '+910000000000');
+    } catch (e) {
+      // Allow it to fail silently or handle error upstream
+    }
   }
 
   @override

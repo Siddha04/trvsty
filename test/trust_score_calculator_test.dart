@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:trusty/core/domain/trust_score_calculator.dart';
-import 'package:trusty/models/trust_score.dart';
-import 'package:trusty/models/verification_results.dart';
+import 'package:trvsty/core/domain/trust_score_calculator.dart';
+import 'package:trvsty/models/trust_score.dart';
+import 'package:trvsty/models/verification_results.dart';
 
 void main() {
   const calculator = TrustScoreCalculator();

@@ -36,7 +36,7 @@ Future<void> main() async {
   // 4. Register dependencies.
   await setupServiceLocator();
 
-  AppLogger.i('Trusty bootstrap complete.');
+  AppLogger.i('Trvsty bootstrap complete.');
 
-  runApp(const ProviderScope(child: TrustyApp()));
+  runApp(const ProviderScope(child: TrvstyApp()));
 }

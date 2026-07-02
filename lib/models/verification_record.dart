@@ -20,6 +20,7 @@ class VerificationRecord extends Equatable {
     this.aadhaar,
     this.faceMatch,
     this.pan,
+    this.bank,
     this.criminal,
     this.trustScore,
     this.paymentId,
@@ -35,6 +36,7 @@ class VerificationRecord extends Equatable {
   final AadhaarData? aadhaar;
   final FaceMatchResult? faceMatch;
   final PanVerificationResult? pan;
+  final BankVerificationResult? bank;
   final CriminalRecordResult? criminal;
   final TrustScore? trustScore;
   final String? paymentId;
@@ -48,6 +50,7 @@ class VerificationRecord extends Equatable {
     AadhaarData? aadhaar,
     FaceMatchResult? faceMatch,
     PanVerificationResult? pan,
+    BankVerificationResult? bank,
     CriminalRecordResult? criminal,
     TrustScore? trustScore,
     String? paymentId,
@@ -62,6 +65,7 @@ class VerificationRecord extends Equatable {
         aadhaar: aadhaar ?? this.aadhaar,
         faceMatch: faceMatch ?? this.faceMatch,
         pan: pan ?? this.pan,
+        bank: bank ?? this.bank,
         criminal: criminal ?? this.criminal,
         trustScore: trustScore ?? this.trustScore,
         paymentId: paymentId ?? this.paymentId,
@@ -78,6 +82,7 @@ class VerificationRecord extends Equatable {
         'aadhaar': aadhaar?.toJson(),
         'faceMatch': faceMatch?.toJson(),
         'pan': pan?.toJson(),
+        'bank': bank?.toJson(),
         'criminal': criminal?.toJson(),
         'trustScore': trustScore?.toJson(),
         'paymentId': paymentId,
@@ -100,6 +105,7 @@ class VerificationRecord extends Equatable {
       faceMatch:
           sub('faceMatch') != null ? FaceMatchResult.fromJson(sub('faceMatch')!) : null,
       pan: sub('pan') != null ? PanVerificationResult.fromJson(sub('pan')!) : null,
+      bank: sub('bank') != null ? BankVerificationResult.fromJson(sub('bank')!) : null,
       criminal: sub('criminal') != null
           ? CriminalRecordResult.fromJson(sub('criminal')!)
           : null,

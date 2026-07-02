@@ -1,5 +1,5 @@
 /**
- * Trusty backend Cloud Functions.
+ * Trvsty backend Cloud Functions.
  *
  * Responsibilities that MUST live server-side (never in the mobile client):
  *   1. Creating Razorpay orders (requires the key secret).
@@ -52,7 +52,7 @@ export const createOrder = onRequest(
       const order = await instance.orders.create({
         amount,
         currency,
-        receipt: `trusty_${userId}_${Date.now()}`,
+        receipt: `trvsty_${userId}_${Date.now()}`,
         notes: {userId},
       });
       res.json({orderId: order.id});

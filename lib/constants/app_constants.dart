@@ -5,11 +5,11 @@
 class AppConstants {
   const AppConstants._();
 
-  static const String appName = 'Trusty';
+  static const String appName = 'Trvsty';
   static const String tagline = 'Verify with Confidence';
-  static const String supportEmail = 'support@trusty.app';
-  static const String privacyPolicyUrl = 'https://trusty.app/privacy';
-  static const String termsUrl = 'https://trusty.app/terms';
+  static const String supportEmail = 'support@trvsty.app';
+  static const String privacyPolicyUrl = 'https://trvsty.app/privacy';
+  static const String termsUrl = 'https://trvsty.app/terms';
 
   /// Generic network timeout.
   static const Duration networkTimeout = Duration(seconds: 30);

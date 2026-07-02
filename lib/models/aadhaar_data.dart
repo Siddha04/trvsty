@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 /// Demographic data extracted from an Aadhaar **Secure QR** code.
 ///
 /// The Secure QR encodes a digitally-signed, compressed payload published by
-/// UIDAI. Trusty only ever retains the masked reference id and non-sensitive
+/// UIDAI. Trvsty only ever retains the masked reference id and non-sensitive
 /// demographic fields; the full Aadhaar number is never reconstructed or
 /// stored (UIDAI Secure QR only exposes the last 4 digits by design).
 class AadhaarData extends Equatable {

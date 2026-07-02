@@ -55,7 +55,7 @@ class PaymentController extends StateNotifier<bool> {
       final checkout = await _ref.read(razorpayServiceProvider).openCheckout(
             amountPaise: amountPaise,
             orderId: payment.razorpayOrderId!,
-            name: 'Trusty Verification',
+            name: 'Trvsty Verification',
             description: purpose,
             contactPhone: contactPhone,
             email: email,

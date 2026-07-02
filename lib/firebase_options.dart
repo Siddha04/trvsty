@@ -32,7 +32,7 @@ class DefaultFirebaseOptions {
         return ios;
       default:
         throw UnsupportedError(
-          'Trusty currently targets Android, iOS and Web. Run '
+          'Trvsty currently targets Android, iOS and Web. Run '
           '`flutterfire configure` to add support for this platform.',
         );
     }
@@ -42,25 +42,25 @@ class DefaultFirebaseOptions {
     apiKey: 'REPLACE_WITH_ANDROID_API_KEY',
     appId: 'REPLACE_WITH_ANDROID_APP_ID',
     messagingSenderId: 'REPLACE_WITH_SENDER_ID',
-    projectId: 'trusty-app',
-    storageBucket: 'trusty-app.appspot.com',
+    projectId: 'trvsty-app',
+    storageBucket: 'trvsty-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'REPLACE_WITH_IOS_API_KEY',
     appId: 'REPLACE_WITH_IOS_APP_ID',
     messagingSenderId: 'REPLACE_WITH_SENDER_ID',
-    projectId: 'trusty-app',
-    storageBucket: 'trusty-app.appspot.com',
-    iosBundleId: 'app.trusty.trusty',
+    projectId: 'trvsty-app',
+    storageBucket: 'trvsty-app.appspot.com',
+    iosBundleId: 'app.trvsty.trvsty',
   );
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'REPLACE_WITH_WEB_API_KEY',
     appId: 'REPLACE_WITH_WEB_APP_ID',
     messagingSenderId: 'REPLACE_WITH_SENDER_ID',
-    projectId: 'trusty-app',
-    authDomain: 'trusty-app.firebaseapp.com',
-    storageBucket: 'trusty-app.appspot.com',
+    projectId: 'trvsty-app',
+    authDomain: 'trvsty-app.firebaseapp.com',
+    storageBucket: 'trvsty-app.appspot.com',
   );
 }

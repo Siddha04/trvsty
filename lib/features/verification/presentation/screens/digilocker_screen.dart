@@ -24,7 +24,7 @@ class _DigiLockerScreenState extends ConsumerState<DigiLockerScreen> {
     setState(() => _loading = true);
     try {
       final session = await sl<SurepassService>().initDigiLocker(
-        redirectUrl: 'https://trusty.app/digilocker/callback',
+        redirectUrl: 'https://trvsty.app/digilocker/callback',
       );
       final uri = Uri.parse(session.authorizationUrl);
       if (await canLaunchUrl(uri)) {

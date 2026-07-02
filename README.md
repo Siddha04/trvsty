@@ -1,6 +1,6 @@
-# Trusty — *Verify with Confidence*
+# Trvsty — *Verify with Confidence*
 
-Trusty is a universal background-verification platform for India. It lets
+Trvsty is a universal background-verification platform for India. It lets
 individuals and organisations verify identity and trustworthiness using
 **Aadhaar Secure QR**, **Face Match**, **PAN Verification**, **Criminal Record
 Check**, and **DigiLocker**, then produces a tamper-evident **Trust Score** and
@@ -106,4 +106,4 @@ flutter build ipa --release         # App Store
 
 ## 📄 License
 
-Proprietary © Trusty. All rights reserved.
+Proprietary © Trvsty. All rights reserved.
