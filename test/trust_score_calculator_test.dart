@@ -24,8 +24,15 @@ void main() {
           isValid: true,
           nameMatch: true,
         ),
+        bank: const BankVerificationResult(
+          accountNumber: '000123456789',
+          ifsc: 'HDFC0000001',
+          registeredName: 'John Doe',
+          isNameMatch: true,
+        ),
         criminal: const CriminalRecordResult(hasRecords: false, recordCount: 0),
       );
+      // 20 (Aadhaar) + 25 (Face) + 20 (PAN) + 20 (Bank) + 15 (Criminal) = 100.
       expect(score.value, 100);
       expect(score.band, TrustBand.high);
     });
@@ -35,8 +42,8 @@ void main() {
         aadhaarVerified: true,
         criminal: const CriminalRecordResult(hasRecords: true, recordCount: 2),
       );
-      // Only Aadhaar (25) counts; criminal contributes 0.
-      expect(score.value, 25);
+      // Only Aadhaar (20) counts; criminal contributes 0.
+      expect(score.value, 20);
       expect(score.breakdown['Criminal Record'], 0);
     });
 
@@ -45,8 +52,8 @@ void main() {
         aadhaarVerified: false,
         faceMatch: const FaceMatchResult(confidence: 80, isMatch: true),
       );
-      // 80% of the 30-point face weight = 24.
-      expect(score.breakdown['Face Match'], 24);
+      // 80% of the 25-point face weight = 20.
+      expect(score.breakdown['Face Match'], 20);
     });
 
     test('valid PAN without a name match earns partial credit', () {
@@ -59,8 +66,21 @@ void main() {
           nameMatch: false,
         ),
       );
-      // 70% of the 25-point PAN weight = 18 (rounded).
-      expect(score.breakdown['PAN'], 18);
+      // 70% of the 20-point PAN weight = 14 (rounded).
+      expect(score.breakdown['PAN'], 14);
+    });
+
+    test('bank verification only counts on a name match', () {
+      final score = calculator.calculate(
+        aadhaarVerified: false,
+        bank: const BankVerificationResult(
+          accountNumber: '000123456789',
+          ifsc: 'HDFC0000001',
+          registeredName: 'Someone Else',
+          isNameMatch: false,
+        ),
+      );
+      expect(score.breakdown['Bank Verify'], 0);
     });
 
     test('band thresholds are correct', () {

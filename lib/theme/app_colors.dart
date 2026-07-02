@@ -18,8 +18,14 @@ class AppColors {
   static const Color error = Color(0xFFFF5252);
   static const Color warning = Color(0xFFFFB300);
 
-  static const Color card = Color(0x0AFFFFFF); // Premium glassmorphism base
-  static const Color cardForeground = Colors.white;
+  /// Cards are solid white "islands" of content on the dark background —
+  /// this is the primary content surface used by [AppCard] everywhere.
+  static const Color card = Colors.white;
+  static const Color cardForeground = Color(0xFF14162B);
+  /// Secondary/muted text drawn *on top of* a white [card] (e.g. subtitles).
+  /// Distinct from [textSecondary], which is for text on the dark background.
+  static const Color cardMuted = Color(0xFF8B92A5);
+  static const Color cardBorder = Color(0x14000000);
 
   static const Color textPrimary = Colors.white;
   static const Color textSecondary = Color(0xFFB0B3C7);
