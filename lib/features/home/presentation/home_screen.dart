@@ -139,7 +139,8 @@ class HomeScreen extends ConsumerWidget {
                                     title: 'Individual',
                                     subtitle: 'Verify a person',
                                     onTap: () => _startVerification(
-                                        context, ref, UserType.individual),
+                                        context, ref, UserType.individual,
+                                    ),
                                   ),
                                   const SizedBox(height: 16),
                                   _PrimaryCard(
@@ -147,7 +148,8 @@ class HomeScreen extends ConsumerWidget {
                                     title: 'Business',
                                     subtitle: 'Verify an organisation',
                                     onTap: () => _startVerification(
-                                        context, ref, UserType.business),
+                                        context, ref, UserType.business,
+                                    ),
                                   ),
                                 ],
                               )
@@ -159,7 +161,8 @@ class HomeScreen extends ConsumerWidget {
                                       title: 'Individual',
                                       subtitle: 'Verify a person',
                                       onTap: () => _startVerification(
-                                          context, ref, UserType.individual),
+                                          context, ref, UserType.individual,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(width: 16),
@@ -169,7 +172,8 @@ class HomeScreen extends ConsumerWidget {
                                       title: 'Business',
                                       subtitle: 'Verify an organisation',
                                       onTap: () => _startVerification(
-                                          context, ref, UserType.business),
+                                          context, ref, UserType.business,
+                                      ),
                                     ),
                                   ),
                                 ],
