@@ -153,7 +153,7 @@ class _Tile extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       color: color ?? AppColors.cardForeground)),
             ),
-            const Icon(Icons.chevron_right, color: AppColors.textMuted),
+            const Icon(Icons.chevron_right, color: AppColors.cardMuted),
           ],
         ),
       ),

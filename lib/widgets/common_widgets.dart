@@ -38,25 +38,25 @@ class _AppCardState extends State<AppCard> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeOutCubic,
-        transform: Matrix4.identity()..scale(_isHovered ? 1.015 : 1.0),
+        transform: Matrix4.identity()..scale(_isHovered ? 1.015 : 1.0, _isHovered ? 1.015 : 1.0, 1.0),
         transformAlignment: Alignment.center,
         decoration: BoxDecoration(
-          color: _isHovered ? const Color(0x15FFFFFF) : AppColors.card,
+          color: AppColors.card,
           borderRadius: BorderRadius.circular(18),
           border: Border.all(
-            color: _isHovered ? AppColors.accent.withValues(alpha: 0.5) : const Color(0x1AFFFFFF),
+            color: _isHovered ? AppColors.accent.withValues(alpha: 0.5) : AppColors.cardBorder,
             width: 1,
           ),
           boxShadow: [
             if (_isHovered)
               BoxShadow(
-                color: AppColors.accent.withValues(alpha: 0.15),
+                color: AppColors.accent.withValues(alpha: 0.18),
                 blurRadius: 24,
                 offset: const Offset(0, 8),
               )
             else
               const BoxShadow(
-                color: Colors.black26,
+                color: AppColors.shadowBase,
                 blurRadius: 12,
                 offset: Offset(0, 6),
               ),
@@ -68,9 +68,10 @@ class _AppCardState extends State<AppCard> {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(18),
                   onTap: widget.onTap,
-                  focusColor: AppColors.accent.withValues(alpha: 0.1),
+                  focusColor: AppColors.accent.withValues(alpha: 0.08),
                   hoverColor: Colors.transparent,
-                  highlightColor: const Color(0x10FFFFFF),
+                  splashColor: AppColors.accent.withValues(alpha: 0.06),
+                  highlightColor: AppColors.accent.withValues(alpha: 0.06),
                   child: content,
                 ),
               )

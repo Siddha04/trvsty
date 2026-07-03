@@ -126,7 +126,7 @@ class _PlanCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: AppColors.cardForeground)),
               const Text(' / month',
-                  style: TextStyle(color: AppColors.textMuted)),
+                  style: const TextStyle(color: AppColors.cardMuted)),
             ],
           ),
           const SizedBox(height: 12),

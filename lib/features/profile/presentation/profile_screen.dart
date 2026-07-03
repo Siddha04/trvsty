@@ -3,17 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/providers/app_providers.dart';
-import '../../../models/user_model.dart';
 import '../../../routes/route_paths.dart';
 import '../../../theme/app_colors.dart';
 import '../../../widgets/common_widgets.dart';
-
-/// Streams the signed-in user's profile document.
-final userProfileProvider = StreamProvider.autoDispose<UserModel?>((ref) {
-  final uid = ref.watch(authRepositoryProvider).currentUser?.uid;
-  if (uid == null) return Stream.value(null);
-  return ref.watch(userRepositoryProvider).watchUser(uid);
-});
 
 /// User profile: shows account details and primary account actions.
 class ProfileScreen extends ConsumerWidget {
@@ -171,7 +163,7 @@ class _InfoRow extends StatelessWidget {
         children: [
           Icon(icon, size: 20, color: AppColors.accent),
           const SizedBox(width: 12),
-          Text(label, style: const TextStyle(color: AppColors.textMuted)),
+          Text(label, style: const TextStyle(color: AppColors.cardMuted)),
           const Spacer(),
           Text(value, style: const TextStyle(fontWeight: FontWeight.w600)),
         ],
@@ -194,7 +186,7 @@ class _MenuRow extends StatelessWidget {
         Expanded(
             child: Text(label,
                 style: const TextStyle(fontWeight: FontWeight.w500))),
-        const Icon(Icons.chevron_right, color: AppColors.textMuted),
+        const Icon(Icons.chevron_right, color: AppColors.cardMuted),
       ],
     );
   }

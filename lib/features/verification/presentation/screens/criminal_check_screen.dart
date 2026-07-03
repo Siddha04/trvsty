@@ -38,14 +38,14 @@ class CriminalCheckScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Subject',
-                        style: TextStyle(color: AppColors.textMuted)),
+                        style: TextStyle(color: AppColors.cardMuted)),
                     const SizedBox(height: 4),
                     Text(aadhaar?.name ?? '—',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18)),
                     if (aadhaar?.dateOfBirth != null)
                       Text('DOB: ${aadhaar!.dateOfBirth}',
-                          style: const TextStyle(color: AppColors.textMuted)),
+                          style: const TextStyle(color: AppColors.cardMuted)),
                   ],
                 ),
               ),

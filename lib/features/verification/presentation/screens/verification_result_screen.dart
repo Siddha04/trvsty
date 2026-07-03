@@ -156,7 +156,7 @@ class _SummaryRow extends StatelessWidget {
         children: [
           Icon(icon, size: 20, color: AppColors.accent),
           const SizedBox(width: 12),
-          Text(label, style: const TextStyle(color: AppColors.textMuted)),
+          Text(label, style: const TextStyle(color: AppColors.cardMuted)),
           const Spacer(),
           Flexible(
             child: Text(

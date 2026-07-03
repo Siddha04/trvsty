@@ -14,7 +14,7 @@ import '../../../widgets/common_widgets.dart';
 final historyStreamProvider =
     StreamProvider.autoDispose<List<VerificationRecord>>((ref) {
   final uid = ref.watch(authRepositoryProvider).currentUser?.uid;
-  if (uid == null) return const Stream<List<VerificationRecord>>.empty();
+  if (uid == null) return Stream.value([]);
   return ref.watch(historyRepositoryProvider).watchHistory(uid);
 });
 
@@ -114,12 +114,12 @@ class _HistoryTile extends StatelessWidget {
                 Text(
                   '${record.subjectType.label} • ${Formatters.date(record.createdAt)}',
                   style:
-                      const TextStyle(color: AppColors.textMuted, fontSize: 12),
+                      const TextStyle(color: AppColors.cardMuted, fontSize: 12),
                 ),
               ],
             ),
           ),
-          const Icon(Icons.chevron_right, color: AppColors.textMuted),
+          const Icon(Icons.chevron_right, color: AppColors.cardMuted),
         ],
       ),
     );
