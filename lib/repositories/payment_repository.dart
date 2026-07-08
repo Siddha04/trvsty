@@ -102,7 +102,7 @@ class PaymentRepositoryImpl implements PaymentRepository {
       if (!verified) {
         await markFailed(payment, 'Signature verification failed.');
         return const ResultFailure(
-            PaymentFailure('Payment could not be verified.'));
+            PaymentFailure('Payment could not be verified.'),);
       }
 
       final captured = payment.copyWith(
@@ -128,7 +128,7 @@ class PaymentRepositoryImpl implements PaymentRepository {
 
   @override
   Future<Result<PaymentModel>> markFailed(
-      PaymentModel payment, String reason) async {
+      PaymentModel payment, String reason,) async {
     try {
       final failed = payment.copyWith(status: PaymentStatus.failed);
       await _firestore.doc(FirestoreCollections.payments, payment.id).set(
@@ -149,5 +149,5 @@ class PaymentRepositoryImpl implements PaymentRepository {
       .orderBy('createdAt', descending: true)
       .snapshots()
       .map((snap) =>
-          snap.docs.map(PaymentModel.fromFirestore).toList(growable: false));
+          snap.docs.map(PaymentModel.fromFirestore).toList(growable: false),);
 }

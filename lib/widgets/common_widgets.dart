@@ -38,7 +38,7 @@ class _AppCardState extends State<AppCard> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeOutCubic,
-        transform: Matrix4.identity()..scale(_isHovered ? 1.015 : 1.0, _isHovered ? 1.015 : 1.0, 1.0),
+        transform: Matrix4.diagonal3Values(_isHovered ? 1.015 : 1.0, _isHovered ? 1.015 : 1.0, 1.0),
         transformAlignment: Alignment.center,
         decoration: BoxDecoration(
           color: AppColors.card,
@@ -143,7 +143,7 @@ class LoadingOverlay extends StatelessWidget {
           if (message != null) ...[
             const SizedBox(height: 16),
             Text(message!,
-                style: const TextStyle(color: AppColors.textPrimary)),
+                style: const TextStyle(color: AppColors.textPrimary),),
           ],
         ],
       ),
@@ -169,7 +169,7 @@ class ErrorView extends StatelessWidget {
             const SizedBox(height: 12),
             Text(message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: AppColors.textSecondary)),
+                style: const TextStyle(color: AppColors.textSecondary),),
             if (onRetry != null) ...[
               const SizedBox(height: 16),
               OutlinedButton.icon(
@@ -192,5 +192,5 @@ void showSnack(BuildContext context, String message, {bool isError = false}) {
     ..showSnackBar(SnackBar(
       content: Text(message),
       backgroundColor: isError ? AppColors.error : AppColors.accentDark,
-    ));
+    ),);
 }

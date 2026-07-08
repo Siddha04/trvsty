@@ -48,7 +48,7 @@ class PaymentController extends StateNotifier<bool> {
       final payment = orderResult.valueOrNull;
       if (payment == null || payment.razorpayOrderId == null) {
         return PaymentFailedOutcome(
-            orderResult.fold((f) => f.message, (_) => 'Could not start payment.'));
+            orderResult.fold((f) => f.message, (_) => 'Could not start payment.'),);
       }
 
       // 2. Open Razorpay checkout.
@@ -79,7 +79,7 @@ class PaymentController extends StateNotifier<bool> {
           return PaymentFailedOutcome(message);
         case RazorpayExternalWallet(:final walletName):
           return PaymentFailedOutcome(
-              'Complete the payment in $walletName and try again.');
+              'Complete the payment in $walletName and try again.',);
       }
     } finally {
       state = false;

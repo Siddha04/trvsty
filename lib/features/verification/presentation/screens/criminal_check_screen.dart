@@ -38,14 +38,14 @@ class CriminalCheckScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Subject',
-                        style: TextStyle(color: AppColors.cardMuted)),
+                        style: TextStyle(color: AppColors.cardMuted),),
                     const SizedBox(height: 4),
                     Text(aadhaar?.name ?? '—',
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18)),
+                            fontWeight: FontWeight.bold, fontSize: 18,),),
                     if (aadhaar?.dateOfBirth != null)
                       Text('DOB: ${aadhaar!.dateOfBirth}',
-                          style: const TextStyle(color: AppColors.cardMuted)),
+                          style: const TextStyle(color: AppColors.cardMuted),),
                   ],
                 ),
               ),
@@ -67,7 +67,7 @@ class CriminalCheckScreen extends ConsumerWidget {
                         height: 18,
                         width: 18,
                         child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white))
+                            strokeWidth: 2, color: Colors.white,),)
                     : const Icon(Icons.gavel),
                 label: Text(state.isLoading ? 'Screening…' : 'Run Check'),
               ),

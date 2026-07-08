@@ -73,7 +73,7 @@ class PaymentModel extends Equatable {
       };
 
   factory PaymentModel.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> doc) {
+      DocumentSnapshot<Map<String, dynamic>> doc,) {
     final data = doc.data() ?? <String, dynamic>{};
     return PaymentModel(
       id: data['id'] as String? ?? doc.id,

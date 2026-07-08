@@ -22,7 +22,7 @@ class PaymentScreen extends ConsumerWidget {
       return;
     }
 
-    final amountPaise =
+    const amountPaise =
         AppConstants.individualVerificationPrice * AppConstants.paisePerRupee;
 
     final outcome = await ref.read(paymentControllerProvider.notifier).pay(
@@ -49,7 +49,7 @@ class PaymentScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loading = ref.watch(paymentControllerProvider);
-    final price = AppConstants.individualVerificationPrice;
+    const price = AppConstants.individualVerificationPrice;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Payment')),
@@ -65,7 +65,7 @@ class PaymentScreen extends ConsumerWidget {
                   children: [
                     const Text('Verification Report',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18)),
+                            fontWeight: FontWeight.bold, fontSize: 18,),),
                     const SizedBox(height: 16),
                     _row('Aadhaar Secure QR', 'Included'),
                     _row('Face Match', 'Included'),
@@ -77,12 +77,12 @@ class PaymentScreen extends ConsumerWidget {
                       children: [
                         const Text('Total',
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16)),
+                                fontWeight: FontWeight.bold, fontSize: 16,),),
                         Text(Formatters.currency(price),
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
-                                color: AppColors.cardForeground)),
+                                color: AppColors.cardForeground,),),
                       ],
                     ),
                   ],
@@ -111,7 +111,7 @@ class PaymentScreen extends ConsumerWidget {
                         height: 22,
                         width: 22,
                         child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white))
+                            strokeWidth: 2, color: Colors.white,),)
                     : Text('Pay ${Formatters.currency(price)}'),
               ),
             ],

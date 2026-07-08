@@ -84,7 +84,7 @@ class _BankEntryScreenState extends ConsumerState<BankEntryScreen> {
                   ),
                 const SizedBox(height: 16),
                 const Text('Enter Bank Account Number',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _accountController,
@@ -101,7 +101,7 @@ class _BankEntryScreenState extends ConsumerState<BankEntryScreen> {
                 ),
                 const SizedBox(height: 16),
                 const Text('Enter IFSC Code',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _ifscController,
@@ -129,7 +129,7 @@ class _BankEntryScreenState extends ConsumerState<BankEntryScreen> {
                           height: 22,
                           width: 22,
                           child: CircularProgressIndicator(
-                              strokeWidth: 2, color: Colors.white))
+                              strokeWidth: 2, color: Colors.white,),)
                       : const Text('Verify Bank Account'),
                 ),
               ],
@@ -145,7 +145,7 @@ class _BankEntryScreenState extends ConsumerState<BankEntryScreen> {
 class UpperCaseTextFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+      TextEditingValue oldValue, TextEditingValue newValue,) {
     return newValue.copyWith(text: newValue.text.toUpperCase());
   }
 }

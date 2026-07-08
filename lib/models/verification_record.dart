@@ -90,7 +90,7 @@ class VerificationRecord extends Equatable {
       };
 
   factory VerificationRecord.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> doc) {
+      DocumentSnapshot<Map<String, dynamic>> doc,) {
     final data = doc.data() ?? <String, dynamic>{};
     Map<String, dynamic>? sub(String key) =>
         data[key] != null ? Map<String, dynamic>.from(data[key] as Map) : null;

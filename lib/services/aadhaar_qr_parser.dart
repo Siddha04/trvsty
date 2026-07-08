@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:xml/xml.dart';
 
 import '../core/error/exceptions.dart';
 import '../models/aadhaar_data.dart';
+import '../utils/gzip_compat.dart';
 
 /// Parses the payload of an Aadhaar **Secure QR** code into [AadhaarData].
 ///
@@ -140,7 +140,7 @@ class AadhaarQrParser {
   /// returns the bytes unchanged.
   Uint8List _maybeGunzip(Uint8List bytes) {
     if (bytes.length > 2 && bytes[0] == 0x1f && bytes[1] == 0x8b) {
-      return Uint8List.fromList(gzip.decode(bytes));
+      return decompressGzip(bytes);
     }
     return bytes;
   }

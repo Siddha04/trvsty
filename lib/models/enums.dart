@@ -1,4 +1,5 @@
 /// Shared enumerations used across models and features.
+library;
 
 /// Type of account / verification subject.
 enum UserType {

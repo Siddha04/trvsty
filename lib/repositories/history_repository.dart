@@ -26,7 +26,7 @@ class HistoryRepositoryImpl implements HistoryRepository {
       .snapshots()
       .map((snap) => snap.docs
           .map(VerificationRecord.fromFirestore)
-          .toList(growable: false));
+          .toList(growable: false),);
 
   @override
   Future<Result<VerificationRecord>> getRecord(String id) async {

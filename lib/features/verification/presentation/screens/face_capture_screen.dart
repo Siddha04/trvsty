@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +24,8 @@ class FaceCaptureScreen extends ConsumerStatefulWidget {
 
 class _FaceCaptureScreenState extends ConsumerState<FaceCaptureScreen> {
   final ImagePicker _picker = ImagePicker();
-  File? _selfie;
+  XFile? _selfie;
+  Uint8List? _selfieBytes;
 
   Future<void> _capture() async {
     final file = await _picker.pickImage(
@@ -33,18 +34,24 @@ class _FaceCaptureScreenState extends ConsumerState<FaceCaptureScreen> {
       maxWidth: 720,
       imageQuality: 85,
     );
-    if (file != null) setState(() => _selfie = File(file.path));
+    if (file != null) {
+      final bytes = await file.readAsBytes();
+      setState(() {
+        _selfie = file;
+        _selfieBytes = bytes;
+      });
+    }
   }
 
   Future<void> _submit() async {
-    final selfie = _selfie;
+    final selfieBytes = _selfieBytes;
     final aadhaar = ref.read(verificationControllerProvider).aadhaar;
-    if (selfie == null) {
+    if (selfieBytes == null) {
       showSnack(context, 'Please capture a selfie first.', isError: true);
       return;
     }
 
-    final selfieB64 = base64Encode(await selfie.readAsBytes());
+    final selfieB64 = base64Encode(selfieBytes);
     // In production the reference image comes from the Secure QR JPEG payload.
     // Here we pass the same field the API expects; the backend resolves the
     // reference photo for the scanned Aadhaar reference id.
@@ -89,10 +96,10 @@ class _FaceCaptureScreenState extends ConsumerState<FaceCaptureScreen> {
                   radius: 96,
                   backgroundColor: AppColors.surface,
                   backgroundImage:
-                      _selfie != null ? FileImage(_selfie!) : null,
+                      _selfieBytes != null ? MemoryImage(_selfieBytes!) : null,
                   child: _selfie == null
                       ? const Icon(Icons.add_a_photo,
-                          color: AppColors.accent, size: 48)
+                          color: AppColors.accent, size: 48,)
                       : null,
                 ),
               ),
@@ -110,7 +117,7 @@ class _FaceCaptureScreenState extends ConsumerState<FaceCaptureScreen> {
                         height: 22,
                         width: 22,
                         child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white))
+                            strokeWidth: 2, color: Colors.white,),)
                     : const Text('Verify Face'),
               ),
             ],

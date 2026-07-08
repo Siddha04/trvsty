@@ -90,10 +90,10 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
             children: [
               const SizedBox(height: 24),
               Text('Enter the 6-digit code sent to',
-                  style: Theme.of(context).textTheme.titleMedium),
+                  style: Theme.of(context).textTheme.titleMedium,),
               Text('+91 ${state.phoneNumber}',
                   style: const TextStyle(
-                      color: AppColors.accent, fontWeight: FontWeight.w600)),
+                      color: AppColors.accent, fontWeight: FontWeight.w600,),),
               const SizedBox(height: 32),
               TextField(
                 controller: _otpController,
@@ -112,16 +112,16 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                         height: 22,
                         width: 22,
                         child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white))
+                            strokeWidth: 2, color: Colors.white,),)
                     : const Text('Verify & Continue'),
               ),
               const SizedBox(height: 16),
               Center(
                 child: _secondsLeft > 0
                     ? Text('Resend OTP in ${_secondsLeft}s',
-                        style: const TextStyle(color: AppColors.textMuted))
+                        style: const TextStyle(color: AppColors.textMuted),)
                     : TextButton(
-                        onPressed: _resend, child: const Text('Resend OTP')),
+                        onPressed: _resend, child: const Text('Resend OTP'),),
               ),
             ],
           ),

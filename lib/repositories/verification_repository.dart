@@ -7,7 +7,6 @@ import '../core/error/failures.dart';
 import '../core/utils/app_logger.dart';
 import '../core/utils/result.dart';
 import '../models/aadhaar_data.dart';
-import '../models/enums.dart';
 import '../models/trust_score.dart';
 import '../models/verification_record.dart';
 import '../models/verification_results.dart';
@@ -87,7 +86,7 @@ class VerificationRepositoryImpl implements VerificationRepository {
             referenceImageBase64: referenceImageBase64,
             selfieImageBase64: selfieImageBase64,
             threshold: AppConstants.faceMatchThreshold,
-          ));
+          ),);
 
   @override
   Future<Result<PanVerificationResult>> verifyPan({
@@ -97,7 +96,7 @@ class VerificationRepositoryImpl implements VerificationRepository {
       _guard(() => _surepass.verifyPan(
             panNumber: panNumber,
             expectedName: expectedName,
-          ));
+          ),);
 
   @override
   Future<Result<CriminalRecordResult>> criminalCheck({
@@ -107,7 +106,7 @@ class VerificationRepositoryImpl implements VerificationRepository {
       _guard(() => _surepass.criminalRecordCheck(
             name: name,
             dateOfBirth: dateOfBirth,
-          ));
+          ),);
 
   @override
   Future<Result<BankVerificationResult>> verifyBankAccount({
@@ -120,7 +119,7 @@ class VerificationRepositoryImpl implements VerificationRepository {
     
     // Fail if IFSC doesn't have 11 characters
     if (ifsc.length != 11) {
-      return ResultFailure(const VerificationFailure('Invalid IFSC Code.'));
+      return const ResultFailure(VerificationFailure('Invalid IFSC Code.'));
     }
 
     // In a real scenario, this would hit SurePass or a banking API.
@@ -130,7 +129,7 @@ class VerificationRepositoryImpl implements VerificationRepository {
       ifsc: ifsc,
       registeredName: expectedName,
       isNameMatch: true,
-    ));
+    ),);
   }
 
   @override

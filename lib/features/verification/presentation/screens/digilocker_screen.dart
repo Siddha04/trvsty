@@ -51,7 +51,7 @@ class _DigiLockerScreenState extends ConsumerState<DigiLockerScreen> {
             children: [
               const SizedBox(height: 16),
               const Icon(Icons.folder_shared,
-                  size: 72, color: AppColors.accent),
+                  size: 72, color: AppColors.accent,),
               const SizedBox(height: 24),
               const Text(
                 'Connect DigiLocker',
@@ -74,7 +74,7 @@ class _DigiLockerScreenState extends ConsumerState<DigiLockerScreen> {
                         height: 18,
                         width: 18,
                         child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white))
+                            strokeWidth: 2, color: Colors.white,),)
                     : const Icon(Icons.link),
                 label: Text(_loading ? 'Connecting…' : 'Connect DigiLocker'),
               ),

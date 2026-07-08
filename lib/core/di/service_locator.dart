@@ -37,7 +37,7 @@ Future<void> setupServiceLocator() async {
     ..registerLazySingleton<DioClient>(() => DioClient())
     ..registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()))
     ..registerLazySingleton<TrustScoreCalculator>(
-        () => const TrustScoreCalculator());
+        () => const TrustScoreCalculator(),);
 
   // --- Services --------------------------------------------------------------
   sl
@@ -58,19 +58,19 @@ Future<void> setupServiceLocator() async {
           authService: sl(),
           userRepository: sl(),
           secureStorage: sl(),
-        ))
+        ),)
     ..registerLazySingleton<VerificationRepository>(
         () => VerificationRepositoryImpl(
               surepass: sl(),
               parser: sl(),
               firestore: sl(),
               calculator: sl(),
-            ))
+            ),)
     ..registerLazySingleton<PaymentRepository>(() => PaymentRepositoryImpl(
           firestore: sl(),
           dio: sl<DioClient>().raw,
-        ))
+        ),)
     ..registerLazySingleton<HistoryRepository>(() => HistoryRepositoryImpl(sl()))
     ..registerLazySingleton<SubscriptionRepository>(
-        () => SubscriptionRepositoryImpl(sl()));
+        () => SubscriptionRepositoryImpl(sl()),);
 }

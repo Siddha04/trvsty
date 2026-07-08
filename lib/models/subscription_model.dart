@@ -99,7 +99,7 @@ class SubscriptionModel extends Equatable {
       };
 
   factory SubscriptionModel.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> doc) {
+      DocumentSnapshot<Map<String, dynamic>> doc,) {
     final data = doc.data() ?? <String, dynamic>{};
     return SubscriptionModel(
       id: data['id'] as String? ?? doc.id,

@@ -78,7 +78,7 @@ class _PanEntryScreenState extends ConsumerState<PanEntryScreen> {
                   ),
                 const SizedBox(height: 16),
                 const Text('Enter PAN number',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _panController,
@@ -102,7 +102,7 @@ class _PanEntryScreenState extends ConsumerState<PanEntryScreen> {
                           height: 22,
                           width: 22,
                           child: CircularProgressIndicator(
-                              strokeWidth: 2, color: Colors.white))
+                              strokeWidth: 2, color: Colors.white,),)
                       : const Text('Verify PAN'),
                 ),
               ],
@@ -118,7 +118,7 @@ class _PanEntryScreenState extends ConsumerState<PanEntryScreen> {
 class UpperCaseTextFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+      TextEditingValue oldValue, TextEditingValue newValue,) {
     return newValue.copyWith(text: newValue.text.toUpperCase());
   }
 }

@@ -66,7 +66,7 @@ class _ConsentScreenState extends ConsumerState<ConsentScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Icon(Icons.shield_outlined,
-                                color: AppColors.accent),
+                                color: AppColors.accent,),
                             const SizedBox(width: 12),
                             Expanded(
                               child: Column(
@@ -74,18 +74,18 @@ class _ConsentScreenState extends ConsumerState<ConsentScreen> {
                                 children: [
                                   Text(p.$1,
                                       style: const TextStyle(
-                                          fontWeight: FontWeight.w600)),
+                                          fontWeight: FontWeight.w600,),),
                                   const SizedBox(height: 4),
                                   Text(p.$2,
                                       style: const TextStyle(
                                           color: AppColors.textMuted,
-                                          fontSize: 13)),
+                                          fontSize: 13,),),
                                 ],
                               ),
                             ),
                           ],
                         ),
-                      )),
+                      ),),
                 ],
               ),
             ),
@@ -112,7 +112,7 @@ class _ConsentScreenState extends ConsumerState<ConsentScreen> {
                         height: 22,
                         width: 22,
                         child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white))
+                            strokeWidth: 2, color: Colors.white,),)
                     : const Text('Agree & Continue'),
               ),
             ),

@@ -17,7 +17,7 @@ class VerificationResultScreen extends ConsumerWidget {
   const VerificationResultScreen({super.key});
 
   Future<void> _share(BuildContext context, WidgetRef ref,
-      VerificationRecord record) async {
+      VerificationRecord record,) async {
     try {
       await ref.read(pdfReportServiceProvider).share(record);
     } catch (e) {

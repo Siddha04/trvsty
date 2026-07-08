@@ -234,4 +234,4 @@ class VerificationController extends StateNotifier<VerificationFlowState> {
 
 final verificationControllerProvider =
     StateNotifierProvider<VerificationController, VerificationFlowState>(
-        (ref) => VerificationController(ref));
+        (ref) => VerificationController(ref),);

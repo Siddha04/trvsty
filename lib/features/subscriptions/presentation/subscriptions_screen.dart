@@ -14,7 +14,7 @@ class SubscriptionsScreen extends ConsumerWidget {
   const SubscriptionsScreen({super.key});
 
   Future<void> _subscribe(
-      BuildContext context, WidgetRef ref, SubscriptionPlan plan) async {
+      BuildContext context, WidgetRef ref, SubscriptionPlan plan,) async {
     final auth = ref.read(authRepositoryProvider).currentUser;
     if (auth == null) return;
 
@@ -68,7 +68,7 @@ class SubscriptionsScreen extends ConsumerWidget {
                 ...plans.map((plan) => _PlanCard(
                       plan: plan,
                       onSubscribe: () => _subscribe(context, ref, plan),
-                    )),
+                    ),),
               ],
             ),
             if (loading)
@@ -99,7 +99,7 @@ class _PlanCard extends StatelessWidget {
             children: [
               Text(plan.tier.label,
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20)),
+                      fontWeight: FontWeight.bold, fontSize: 20,),),
               if (_highlighted)
                 Container(
                   padding:
@@ -112,7 +112,7 @@ class _PlanCard extends StatelessWidget {
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 11,
-                          fontWeight: FontWeight.bold)),
+                          fontWeight: FontWeight.bold,),),
                 ),
             ],
           ),
@@ -124,9 +124,9 @@ class _PlanCard extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.cardForeground)),
+                      color: AppColors.cardForeground,),),
               const Text(' / month',
-                  style: const TextStyle(color: AppColors.cardMuted)),
+                  style: TextStyle(color: AppColors.cardMuted),),
             ],
           ),
           const SizedBox(height: 12),
@@ -135,12 +135,12 @@ class _PlanCard extends StatelessWidget {
                 child: Row(
                   children: [
                     const Icon(Icons.check_circle,
-                        color: AppColors.success, size: 18),
+                        color: AppColors.success, size: 18,),
                     const SizedBox(width: 8),
                     Expanded(child: Text(f)),
                   ],
                 ),
-              )),
+              ),),
           const SizedBox(height: 16),
           SizedBox(
             width: double.infinity,

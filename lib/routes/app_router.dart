@@ -72,11 +72,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       // ── Standalone screens (no bottom nav) ────────────────────────────────
       GoRoute(
           path: RoutePaths.splash,
-          builder: (_, __) => const SplashScreen()),
+          builder: (_, __) => const SplashScreen(),),
       GoRoute(path: RoutePaths.login, builder: (_, __) => const LoginScreen()),
       GoRoute(path: RoutePaths.otp, builder: (_, __) => const OtpScreen()),
       GoRoute(
-          path: RoutePaths.consent, builder: (_, __) => const ConsentScreen()),
+          path: RoutePaths.consent, builder: (_, __) => const ConsentScreen(),),
 
       // ── Primary destinations — wrapped in NavigationBar shell ──────────────
       ShellRoute(
@@ -84,45 +84,45 @@ final routerProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(
               path: RoutePaths.home,
-              builder: (_, __) => const HomeScreen()),
+              builder: (_, __) => const HomeScreen(),),
           GoRoute(
               path: RoutePaths.history,
-              builder: (_, __) => const HistoryScreen()),
+              builder: (_, __) => const HistoryScreen(),),
           GoRoute(
               path: RoutePaths.profile,
-              builder: (_, __) => const ProfileScreen()),
+              builder: (_, __) => const ProfileScreen(),),
         ],
       ),
 
       // ── Settings (accessible via Profile) ────────────────────────────────
       GoRoute(
           path: RoutePaths.settings,
-          builder: (_, __) => const SettingsScreen()),
+          builder: (_, __) => const SettingsScreen(),),
 
       // ── Verification pipeline (pushes over the shell) ─────────────────────
       GoRoute(
           path: RoutePaths.scanAadhaar,
-          builder: (_, __) => const ScanAadhaarScreen()),
+          builder: (_, __) => const ScanAadhaarScreen(),),
       GoRoute(
           path: RoutePaths.faceCapture,
-          builder: (_, __) => const FaceCaptureScreen()),
+          builder: (_, __) => const FaceCaptureScreen(),),
       GoRoute(
           path: RoutePaths.panEntry,
-          builder: (_, __) => const PanEntryScreen()),
+          builder: (_, __) => const PanEntryScreen(),),
       GoRoute(
           path: RoutePaths.bankEntry,
-          builder: (_, __) => const BankEntryScreen()),
+          builder: (_, __) => const BankEntryScreen(),),
       GoRoute(
           path: RoutePaths.criminalCheck,
-          builder: (_, __) => const CriminalCheckScreen()),
+          builder: (_, __) => const CriminalCheckScreen(),),
       GoRoute(
-          path: RoutePaths.payment, builder: (_, __) => const PaymentScreen()),
+          path: RoutePaths.payment, builder: (_, __) => const PaymentScreen(),),
       GoRoute(
           path: RoutePaths.result,
-          builder: (_, __) => const VerificationResultScreen()),
+          builder: (_, __) => const VerificationResultScreen(),),
       GoRoute(
           path: RoutePaths.digilocker,
-          builder: (_, __) => const DigiLockerScreen()),
+          builder: (_, __) => const DigiLockerScreen(),),
 
       // ── Report preview expects a VerificationRecord via `extra` ───────────
       GoRoute(
@@ -134,7 +134,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       // ── Other destinations that push over the shell ────────────────────────
       GoRoute(
           path: RoutePaths.subscriptions,
-          builder: (_, __) => const SubscriptionsScreen()),
+          builder: (_, __) => const SubscriptionsScreen(),),
     ],
     errorBuilder: (_, state) => Scaffold(
       body: Center(child: Text('Route not found: ${state.uri}')),

@@ -75,7 +75,7 @@ class BusinessModel extends Equatable {
       };
 
   factory BusinessModel.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> doc) {
+      DocumentSnapshot<Map<String, dynamic>> doc,) {
     final data = doc.data() ?? <String, dynamic>{};
     return BusinessModel(
       id: data['id'] as String? ?? doc.id,

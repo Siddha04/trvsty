@@ -33,7 +33,7 @@ class SettingsScreen extends ConsumerWidget {
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('Cancel')),
+              child: const Text('Cancel'),),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
             child: const Text('Delete', style: TextStyle(color: AppColors.error)),
@@ -100,7 +100,7 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 24),
             const Center(
               child: Text('Trvsty v1.0.0',
-                  style: TextStyle(color: AppColors.textMuted)),
+                  style: TextStyle(color: AppColors.textMuted),),
             ),
           ],
         ),
@@ -120,7 +120,7 @@ class _SectionHeader extends StatelessWidget {
             style: const TextStyle(
                 color: AppColors.textSecondary,
                 fontWeight: FontWeight.w600,
-                fontSize: 13)),
+                fontSize: 13,),),
       );
 }
 
@@ -151,7 +151,7 @@ class _Tile extends StatelessWidget {
               child: Text(label,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      color: color ?? AppColors.cardForeground)),
+                      color: color ?? AppColors.cardForeground,),),
             ),
             const Icon(Icons.chevron_right, color: AppColors.cardMuted),
           ],

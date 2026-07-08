@@ -80,5 +80,5 @@ class SubscriptionRepositoryImpl implements SubscriptionRepository {
       .snapshots()
       .map((snap) => snap.docs.isEmpty
           ? null
-          : SubscriptionModel.fromFirestore(snap.docs.first));
+          : SubscriptionModel.fromFirestore(snap.docs.first),);
 }

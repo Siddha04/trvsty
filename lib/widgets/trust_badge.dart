@@ -50,7 +50,7 @@ class TrustBadge extends StatelessWidget {
                   ),
                   Text('/ 100',
                       style: TextStyle(
-                          color: AppColors.textSecondary, fontSize: size * 0.09)),
+                          color: AppColors.textSecondary, fontSize: size * 0.09,),),
                 ],
               ),
             ],
@@ -60,7 +60,7 @@ class TrustBadge extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           decoration: BoxDecoration(
-            color: _color.withOpacity(0.15),
+            color: _color.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: _color),
           ),
@@ -70,7 +70,7 @@ class TrustBadge extends StatelessWidget {
               Icon(Icons.verified, color: _color, size: 18),
               const SizedBox(width: 6),
               Text(score.band.label,
-                  style: TextStyle(color: _color, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: _color, fontWeight: FontWeight.w600),),
             ],
           ),
         ),

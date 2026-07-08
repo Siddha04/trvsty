@@ -31,7 +31,7 @@ class HistoryScreen extends ConsumerWidget {
       body: SafeArea(
         child: history.when(
           loading: () => const Center(
-              child: CircularProgressIndicator(color: AppColors.accent)),
+              child: CircularProgressIndicator(color: AppColors.accent),),
           error: (e, _) => ErrorView(
             message: 'Could not load history.\n$e',
             onRetry: () => ref.invalidate(historyStreamProvider),
@@ -65,10 +65,10 @@ class _EmptyHistory extends StatelessWidget {
           Icon(Icons.history, size: 64, color: AppColors.textMuted),
           SizedBox(height: 12),
           Text('No verifications yet',
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 16)),
+              style: TextStyle(color: AppColors.textSecondary, fontSize: 16),),
           SizedBox(height: 4),
           Text('Completed verifications will appear here.',
-              style: TextStyle(color: AppColors.textMuted)),
+              style: TextStyle(color: AppColors.textMuted),),
         ],
       ),
     );
@@ -98,10 +98,10 @@ class _HistoryTile extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 26,
-            backgroundColor: _scoreColor.withOpacity(0.15),
+            backgroundColor: _scoreColor.withValues(alpha: 0.15),
             child: Text('$score',
                 style: TextStyle(
-                    color: _scoreColor, fontWeight: FontWeight.bold)),
+                    color: _scoreColor, fontWeight: FontWeight.bold,),),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -109,7 +109,7 @@ class _HistoryTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(record.aadhaar?.name ?? 'Verification ${record.shortId}',
-                    style: const TextStyle(fontWeight: FontWeight.w600)),
+                    style: const TextStyle(fontWeight: FontWeight.w600),),
                 const SizedBox(height: 2),
                 Text(
                   '${record.subjectType.label} • ${Formatters.date(record.createdAt)}',

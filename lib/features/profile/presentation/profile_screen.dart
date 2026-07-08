@@ -20,10 +20,10 @@ class ProfileScreen extends ConsumerWidget {
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('Cancel')),
+              child: const Text('Cancel'),),
           TextButton(
               onPressed: () => Navigator.pop(ctx, true),
-              child: const Text('Sign out')),
+              child: const Text('Sign out'),),
         ],
       ),
     );
@@ -49,7 +49,7 @@ class ProfileScreen extends ConsumerWidget {
       body: SafeArea(
         child: profile.when(
           loading: () => const Center(
-              child: CircularProgressIndicator(color: AppColors.accent)),
+              child: CircularProgressIndicator(color: AppColors.accent),),
           error: (e, _) => ErrorView(message: '$e'),
           data: (user) => ListView(
             padding: const EdgeInsets.all(20),
@@ -58,9 +58,9 @@ class ProfileScreen extends ConsumerWidget {
               Center(
                 child: CircleAvatar(
                   radius: 44,
-                  backgroundColor: AppColors.accent.withOpacity(0.15),
+                  backgroundColor: AppColors.accent.withValues(alpha: 0.15),
                   child: const Icon(Icons.person,
-                      size: 48, color: AppColors.accent),
+                      size: 48, color: AppColors.accent,),
                 ),
               ),
               const SizedBox(height: 12),
@@ -75,7 +75,7 @@ class ProfileScreen extends ConsumerWidget {
               ),
               Center(
                 child: Text('+91 ${user?.phoneNumber.replaceFirst('+91', '') ?? ''}',
-                    style: const TextStyle(color: AppColors.textSecondary)),
+                    style: const TextStyle(color: AppColors.textSecondary),),
               ),
               const SizedBox(height: 24),
               AppCard(
@@ -84,19 +84,19 @@ class ProfileScreen extends ConsumerWidget {
                     _InfoRow(
                         icon: Icons.badge,
                         label: 'Account type',
-                        value: user?.userType.label ?? '—'),
+                        value: user?.userType.label ?? '—',),
                     const Divider(),
                     _InfoRow(
                         icon: Icons.email_outlined,
                         label: 'Email',
-                        value: user?.email ?? 'Not set'),
+                        value: user?.email ?? 'Not set',),
                     const Divider(),
                     _InfoRow(
                         icon: Icons.verified_user,
                         label: 'Consent',
                         value: (user?.consentAccepted ?? false)
                             ? 'Granted'
-                            : 'Pending'),
+                            : 'Pending',),
                   ],
                 ),
               ),
@@ -104,12 +104,12 @@ class ProfileScreen extends ConsumerWidget {
               AppCard(
                 onTap: () => context.push(RoutePaths.history),
                 child: const _MenuRow(
-                    icon: Icons.history, label: 'Verification History'),
+                    icon: Icons.history, label: 'Verification History',),
               ),
               AppCard(
                 onTap: () => context.push(RoutePaths.subscriptions),
                 child: const _MenuRow(
-                    icon: Icons.workspace_premium, label: 'Subscription Plans'),
+                    icon: Icons.workspace_premium, label: 'Subscription Plans',),
               ),
               AppCard(
                 onTap: () => context.push(RoutePaths.settings),
@@ -185,7 +185,7 @@ class _MenuRow extends StatelessWidget {
         const SizedBox(width: 16),
         Expanded(
             child: Text(label,
-                style: const TextStyle(fontWeight: FontWeight.w500))),
+                style: const TextStyle(fontWeight: FontWeight.w500),),),
         const Icon(Icons.chevron_right, color: AppColors.cardMuted),
       ],
     );

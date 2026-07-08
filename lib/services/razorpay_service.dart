@@ -99,14 +99,14 @@ class RazorpayService {
       paymentId: response.paymentId ?? '',
       orderId: response.orderId,
       signature: response.signature,
-    ));
+    ),);
   }
 
   void _onError(PaymentFailureResponse response) {
     _completer?.complete(RazorpayError(
       code: response.code ?? -1,
       message: response.message ?? 'Payment failed.',
-    ));
+    ),);
   }
 
   void _onExternalWallet(ExternalWalletResponse response) {

@@ -63,16 +63,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium
-                          ?.copyWith(fontWeight: FontWeight.bold)),
+                          ?.copyWith(fontWeight: FontWeight.bold),),
                 ),
                 const SizedBox(height: 4),
                 const Center(
                   child: Text(AppConstants.tagline,
-                      style: TextStyle(color: AppColors.textSecondary)),
+                      style: TextStyle(color: AppColors.textSecondary),),
                 ),
                 const SizedBox(height: 48),
                 const Text('Enter your mobile number',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _phoneController,
@@ -95,7 +95,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           height: 22,
                           width: 22,
                           child: CircularProgressIndicator(
-                              strokeWidth: 2, color: Colors.white),
+                              strokeWidth: 2, color: Colors.white,),
                         )
                       : const Text('Send OTP'),
                 ),
