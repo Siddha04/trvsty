@@ -83,7 +83,7 @@ Quick start:
 
 ```bash
 cp .env.example .env          # fill in SurePass + Razorpay values
-flutterfire configure         # generates lib/firebase_options.dart
+cp .env.example .env           # generates lib/firebase_options.dart
 flutter pub get
 flutter run       #flutter run -d chrome --no-dds
 ```
